@@ -5,7 +5,7 @@ xgboost
 streamlit
 scikit-learn
 gensim
-scipy==1.10.1
+scipy==1.9.3
 bs4==0.0.1
 regex
 mode
