@@ -1,20 +1,20 @@
-# Duplicate Question Pairs Detector
+# ✨**Duplicate Question Pairs Detector**
 
-## Project Overview
+## 📝Project Overview
 
 This project aims to detect duplicate question pairs using various Natural Language Processing (NLP) techniques and machine learning models. It has significant applications in platforms like Quora and Stack Overflow, where users often submit similar questions. The goal is to identify these duplicate questions, which can improve user experience by reducing redundancy and helping users find answers more efficiently.
 
-***Try application [here](https://duplicate-question-pairs-detector.onrender.com/)***
+💁‍♂️***Try application [here](https://duplicate-question-pairs-detector.onrender.com/)***
 
 <img src="img_1.png" alt="Model Architecture" width="400"/>
 <img src="img_2.png" alt="Model Architecture" width="400"/>
 
 
-## Application Importance
+## 📌Application Importance
 
 The Duplicate Question Pairs Detector can be used in any Question-Answer platform to reduce redundancy and improve the relevance of search results. It can also help in curating better FAQ sections by clustering similar questions together. This application is crucial in enhancing the user experience by providing quick and accurate information retrieval.
 
-## Dataset
+## 📁Dataset
 
 The dataset used for this project contains nearly 350,000 rows with the following columns:
  `id`, 
@@ -25,11 +25,11 @@ The dataset used for this project contains nearly 350,000 rows with the followin
  `is_duplicate`. 
  The dataset is available on Kaggle and can be accessed [here](https://www.kaggle.com/c/quora-question-pairs).
 
-## Exploratory Data Analysis (EDA)
+## 📈Exploratory Data Analysis (EDA)
 
 I performed basic EDA on the dataset, which is stored in the `eda.ipynb` file. The dataset was found to have no null or duplicate values, so I proceeded directly to the preprocessing stage.
 
-## Preprocessing
+## 🔎Preprocessing
 
 - **Lowercasing:** All questions were converted to lowercase.
 - **Symbol Replacement:** Symbols were replaced with their string equivalents (e.g., `%` to `percent`, `$` to `dollar`).
@@ -39,7 +39,7 @@ I performed basic EDA on the dataset, which is stored in the `eda.ipynb` file. T
 - **Punctuation and HTML Tag Removal:** All punctuations and HTML tags were removed.
 - **Stemming:** Words were reduced to their base or root form.
 
-## Feature Engineering
+## 📊Feature Engineering
 
 ### Basic Features:
 - **q1_len:** The number of characters in question1.
@@ -51,8 +51,8 @@ I performed basic EDA on the dataset, which is stored in the `eda.ipynb` file. T
 - **word_share:** The ratio of common words to total words.
 
 ### Advanced Token-Based Features:
-- **cwc_min:** The ratio of common non-stopwords count with minimum of length of non-stopwords of both the questions.
-**cwc_max:** The ratio of common non-stopwords count with maximum of length of non-stopwords of both the questions.
+- **cwc_min:** The ratio of common non-stopwords count with minimum of length of non-stopwords of                 both the questions.
+- **cwc_max:** The ratio of common non-stopwords count with maximum of length of non-stopwords of                  both the questions.
 - **css_min:** The ratio of common stopwords and minimum of length of stopwords of questions.
 - **css_max:** The ratio of common stopwords and maximum of length of stopwords of questions.
 - **ctc_min:** The ratio of common tokens and minimum of length of tokens of both the questions.
@@ -70,7 +70,7 @@ I performed basic EDA on the dataset, which is stored in the `eda.ipynb` file. T
 
 An exploratory analysis of the newly created features was conducted to understand their importance in the model. The feature importance was analyzed to identify which features contributed most significantly to the prediction of duplicate questions.
 
-## Word Embedding
+## 👨‍💻Word Embedding
 
 I initially used a Bag of Words model, but it failed to capture the semantic meaning of the text. Therefore, I switched to a TF-IDF weighted Word2Vec model:
 - **Word2Vec Model:** Trained on the dataset to capture word semantics.
@@ -81,8 +81,8 @@ I initially used a Bag of Words model, but it failed to capture the semantic mea
 For model training, I used ensemble methods like Random Forest and XGBoost:
 - **XGBoost:** Initially achieved 74% accuracy on 5000 rows. After hyperparameter tuning using RandomSearchCV, I achieved an accuracy of **80.07%** on 20,000 data points.
 
-### Model Performance:
-- **Accuracy:** 80.07%
+### 🏅Model Performance:
+- **🎯Accuracy:** 80.07%
 - **Precision and Recall:** The model's precision and recall metrics are as follows:
 
 ```plaintext
@@ -98,9 +98,9 @@ Accuracy for XGBoost is 0.80065
    macro avg       0.79      0.78      0.78     20000
 weighted avg       0.80      0.80      0.80     20000
 
-```plaintext
+```
 
-## Deployment
+## 🚀Deployment
 
 The final model has been deployed as a web application using Streamlit. The application allows users to input two questions and determines if they are duplicates based on the trained model. This deployment helps to demonstrate the practical application of the model and provides an interactive interface for users to test the model's performance in real-time.
 
@@ -112,11 +112,11 @@ You can access the deployed web application [here](https://duplicate-question-pa
 - **Framework:** Streamlit
 - **Deployment Pipeline:** The application was set up with necessary dependencies, including `nltk` stopwords and other required libraries. The deployment process involved configuring environment variables, setting up the build script, and ensuring all dependencies were properly installed.
 
-## Conclusion
+## 🤔Conclusion
 
 This project successfully demonstrates the application of Natural Language Processing (NLP) and machine learning techniques to detect duplicate question pairs. Through the use of advanced feature engineering, word embeddings, and ensemble methods like Random Forest and XGBoost, the model achieves robust performance. 
 
-### Key Takeaways
+### 🎖Key Takeaways
 
 - **Feature Engineering:** Comprehensive feature engineering, including both basic and advanced features, contributed significantly to the model's ability to differentiate between duplicate and non-duplicate questions.
 - **Word Embedding:** The TF-IDF weighted Word2Vec model provided a more nuanced representation of text compared to the traditional Bag of Words model, capturing semantic meaning effectively.
