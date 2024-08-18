@@ -1,9 +1,11 @@
 numpy
 nltk==3.7
 fuzzywuzzy==0.18.0
+xgboost
 streamlit
 scikit-learn
 gensim
+scipy==1.10.1
 bs4==0.0.1
 regex
 mode
