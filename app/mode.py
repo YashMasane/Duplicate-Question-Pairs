@@ -4,7 +4,6 @@ import pickle
 from nltk.corpus import stopwords
 from fuzzywuzzy import fuzz
 import numpy as np
-from gensim.models import word2vec
 from nltk.stem.porter import PorterStemmer
 
 
