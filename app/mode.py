@@ -4,10 +4,16 @@ import pickle
 from nltk.corpus import stopwords
 from fuzzywuzzy import fuzz
 import numpy as np
+from gensim.models import word2vec
+from nltk.stem.porter import PorterStemmer
 
 
-with open('cv.pkl', 'rb') as file:
-    cv = pickle.load(file)
+
+with open('tfidf_vectorizer.pkl', 'rb') as file:
+    tfidf_vectorizer = pickle.load(file)
+
+with open('word2vec_model.pkl', 'rb') as file:
+    word2vec_model = pickle.load(file)
 
 
 def common_words(q1, q2):
@@ -78,6 +84,12 @@ def fuzzy_features(q1, q2):
 
     return fuzzy_features
 
+# applying stemming
+ps = PorterStemmer()
+
+def stem_words(text):
+    return " ".join([ps.stem(word) for word in text.split()])
+
 
 # data preprocessing
 def preprocess(q):
@@ -90,6 +102,7 @@ def preprocess(q):
     q = q.replace('₹', ' rupee ')
     q = q.replace('€', ' euro ')
     q = q.replace('@', ' at ')
+    q = q.replace('?', '')
 
     # The pattern '[math]' appears around 900 times in the whole dataset.
     q = q.replace('[math]', '')
@@ -249,6 +262,23 @@ def preprocess(q):
 
     return q
 
+def tfidf_weighted_word2vec(doc, word2vec_model, tfidf_scores):
+    word_vectors = []
+    for word in doc:
+        if word in word2vec_model.wv.key_to_index:
+            # Get the Word2Vec vector for the word
+            vector = word2vec_model.wv[word]
+            # Multiply by the TF-IDF score for the word
+            tfidf_score = tfidf_scores.get(word, 0.0)
+            weighted_vector = vector * tfidf_score
+            word_vectors.append(weighted_vector)
+    
+    # Compute the weighted average of the word vectors
+    if word_vectors:
+        return np.mean(word_vectors, axis=0)
+    else:
+        return np.zeros(word2vec_model.vector_size)
+
 
 def preprocessing(q1, q2):
 
@@ -256,6 +286,12 @@ def preprocessing(q1, q2):
 
     q1 = preprocess(q1)
     q2 = preprocess(q2)
+
+    q1 = stem_words(q1)
+    q2 = stem_words(q2)
+
+    q1_tokens = q1.split()
+    q2_tokens = q2.split()
 
     features.append(len(q1))
     features.append(len(q2))
@@ -270,7 +306,12 @@ def preprocessing(q1, q2):
     features.extend(token_features(q1, q2))
     features.extend(fuzzy_features(q1, q2))
 
-    q1_bow = cv.transform([q1]).toarray()
-    q2_bow = cv.transform([q2]).toarray()
+    tfidf_matrix = tfidf_vectorizer.transform([q1, q2])
+    tfidf_feature_names = tfidf_vectorizer.get_feature_names_out()
 
-    return np.hstack((np.array(features).reshape(1, 19), q1_bow, q2_bow))
+    tfidf_scores = dict(zip(tfidf_feature_names, tfidf_matrix.toarray().sum(axis=0)))
+
+    q1_vec = tfidf_weighted_word2vec(q1_tokens, word2vec_model, tfidf_scores)
+    q2_vec = tfidf_weighted_word2vec(q2_tokens, word2vec_model, tfidf_scores)
+
+    return np.hstack((np.array(features).reshape(1, 19), (q1_vec).reshape(1, -1), (q2_vec).reshape(1, -1)))
