@@ -5,7 +5,13 @@ from nltk.corpus import stopwords
 from fuzzywuzzy import fuzz
 import numpy as np
 from nltk.stem.porter import PorterStemmer
+import nltk
 
+# Download required datasets
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 
 with open('app/tfidf_vectorizer.pkl', 'rb') as file:
