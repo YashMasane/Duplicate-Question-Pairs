@@ -6,7 +6,7 @@ This project aims to detect duplicate question pairs using various Natural Langu
 
 💁‍♂️***Try application [here](https://duplicate-question-pairs-detector.onrender.com/)***
 
-<img src="img_3.png" alt="Model Architecture" width="350" height="250"/> <img src="img_2.png" alt="Model Architecture" width="350" height="250"/>
+<img src="/img/img_3.png" alt="Model Architecture" width="350" height="250"/> <img src="/img/img_2.png" alt="Model Architecture" width="350" height="300"/>
 
 
 ## 📌Application Importance
