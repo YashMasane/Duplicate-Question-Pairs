@@ -98,6 +98,8 @@ Accuracy for XGBoost is 0.80065
    macro avg       0.79      0.78      0.78     20000
 weighted avg       0.80      0.80      0.80     20000
 
+```plaintext
+
 ## Deployment
 
 The final model has been deployed as a web application using Streamlit. The application allows users to input two questions and determines if they are duplicates based on the trained model. This deployment helps to demonstrate the practical application of the model and provides an interactive interface for users to test the model's performance in real-time.
