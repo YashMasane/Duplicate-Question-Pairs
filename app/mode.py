@@ -8,10 +8,10 @@ from nltk.stem.porter import PorterStemmer
 
 
 
-with open('tfidf_vectorizer.pkl', 'rb') as file:
+with open('app/tfidf_vectorizer.pkl', 'rb') as file:
     tfidf_vectorizer = pickle.load(file)
 
-with open('word2vec_model.pkl', 'rb') as file:
+with open('app/word2vec_model.pkl', 'rb') as file:
     word2vec_model = pickle.load(file)
 
 
