@@ -3,6 +3,7 @@ nltk==3.7
 fuzzywuzzy==0.18.0
 streamlit
 scikit-learn
+gensim
 bs4==0.0.1
 regex
 mode
